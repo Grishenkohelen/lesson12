@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+  let address = window.location.href;
+  let id;
+  if (address.slice(address.length - 1) == '0') {
+      id = address.slice(address.length - 2)
+  }
+  else id = address.slice(address.length - 1)
+
+  fetch(`http://jsonplaceholder.typicode.com/users/${id}`)
+      .then(el => el.json())
+      .then(res => {
+          let div = document.createElement('div');
+          document.body.appendChild(div);
+
+          let h3 = document.createElement('h3');
+          h3.innerText = res.id + '.' + res.name;
+
+          let username = document.createElement('p');
+          username.innerText = 'username: ' + res.username;
+
+          let email = document.createElement('p');
+          email.innerText = 'email: ' + res.email;
+
+          let address = document.createElement('div');
+          let street = document.createElement('p');
+          street.innerText = 'street: ' + res.address.street;
+          let suite = document.createElement('p');
+          suite.innerText = 'suite: ' + res.address.suite;
+          let city = document.createElement('p');
+          city.innerText = 'city: ' + res.address.city;
+          let zipcode = document.createElement('p');
+          zipcode.innerText = 'zipcode: ' + res.address.zipcode;
+          let geo = document.createElement('div');
+          let lat = document.createElement('p');
+          lat.innerText = 'lat: ' + res.address.geo.lat;
+          let lng = document.createElement('p');
+          lng.innerText = 'lng: ' + res.address.geo.lng;
+          geo.append(lat, lng);
+          address.append(street, suite, city, zipcode ,geo);
+
+          let phone = document.createElement('p');
+          phone.innerText = 'phone: ' + res.phone;
+
+          let website = document.createElement('p');
+          website.innerText = 'website: ' + res.website;
+
+          let company = document.createElement('div');
+          let companyName = document.createElement('p');
+          companyName.innerText = 'companyName: ' + res.company.name;
+          let catchPhrase = document.createElement('p');
+          catchPhrase.innerText = 'phrase: ' + res.company.catchPhrase;
+          let companyBs = document.createElement('p');
+          companyBs.innerText = 'bs: ' + res.company.bs;
+          company.append(companyName, catchPhrase, companyBs);
+
+          div.append(h3, username, email, address, phone, website, company);
+
+
+      })
+
+</script>
+</body>
+</html>
